@@ -1,0 +1,10 @@
+orm整个流程参考orm_create_allflow.py
+
+column定义的常用参数
+default：默认值
+nullable：是否为空
+primary_key：主键
+unique：是否唯一
+autoincrement：是否自增
+onupdate：更新时执行的
+name：数据库映射后的属性
