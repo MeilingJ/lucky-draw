@@ -3,16 +3,16 @@ from sqlalchemy import create_engine
 
 conn_str = "mysql+pymysql://{user}:{pwd}@{host}:3306/{db_name}?charset=utf8mb4"
 
-connect_info = conn_str.format(user='root',
-                              pwd='12345678',
-                              host='127.0.0.1',
-                              db_name='test')
+connect_info = conn_str.format(user='htc',
+                              pwd='123456',
+                              host='10.16.2.5',
+                              db_name='test_td')
 print("connect_info is: ", connect_info)
 
 engine = create_engine(connect_info, echo=True, max_overflow=5)
 
-result = engine.execute("select * from stu;")
+result = engine.execute("select * from config;")
 print(result.fetchall())
 
-result = engine.query("select * from stu;")
-print(result)
+# result = engine.query("select * from config;")
+# print(result)

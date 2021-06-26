@@ -21,7 +21,14 @@ class SomeThing(object):
 
 # utils方法
 def create_session():
-    engine = create_engine("hive://hive@10.16.100.1:10000/test_grl", pool_recycle=1800)
+    conn_str = "mysql+pymysql://{user}:{pwd}@{host}:3306/{db_name}?charset=utf8mb4"
+
+    connect_info = conn_str.format(user='htc',
+                                   pwd='123456',
+                                   host='10.16.2.5',
+                                   db_name='test_td')
+
+    engine = create_engine(connect_info, pool_recycle=1800)
 
     # 把当前的引擎绑定给这个会话, 即创建session工厂DBSession
     DBSession = sessionmaker(engine)

@@ -25,10 +25,10 @@ from sqlalchemy.orm import sessionmaker, relationship
     4）engine=create_engine('sqlite:///:memory:',echo=True)将使用一个只在内存中SQLite数据库
 '''
 conn_str = "mysql+pymysql://{user}:{pwd}@{host}:3306/{db_name}?charset=utf8mb4"
-connect_info = conn_str.format(user='root',
-                              pwd='12345678',
-                              host='127.0.0.1',
-                              db_name='test')
+connect_info = conn_str.format(user='htc',
+                               pwd='123456',
+                               host='10.16.2.5',
+                               db_name='test_td')
 engine = create_engine(connect_info, echo=True, max_overflow=5)
 
 # step 2: 创建表定义中继承的基类
@@ -140,6 +140,8 @@ IdentitySet([<User(name='wendy', fullname='Wendy Williams', password='foobar')>,
 <User(name='mary', fullname='Mary Contrary', password='xxg527')>,
 <User(name='fred', fullname='Fred Flinstone', password='blah')>])
 '''
+# 7.8: 删除数据
+session.delete(ed_person)
 # 7.7: 提交数据回滚数据
 # 上面的数据并没有在数据库中，需要通过commit()方法把数据提交到数据库中，获取通过rollback回滚数据。
 session.rollback()

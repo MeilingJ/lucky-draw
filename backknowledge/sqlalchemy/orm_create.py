@@ -4,8 +4,16 @@ from sqlalchemy import create_engine
 
 # step 1: 创建engine
 # 创建一个实例引擎,它代表了一个数据库的核心接口
+
+conn_str = "mysql+pymysql://{user}:{pwd}@{host}:3306/{db_name}?charset=utf8mb4"
+
+connect_info = conn_str.format(user='htc',
+                               pwd='123456',
+                               host='10.16.2.5',
+                               db_name='test_td')
+
 engine = create_engine(
-    "mysql+pymysql://root:12345678@127.0.0.1:3306/test?charset=utf8mb4",
+    connect_info,
     echo=True,
     max_overflow=5)
 
