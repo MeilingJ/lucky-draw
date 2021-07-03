@@ -13,12 +13,13 @@ class Lucky_draw_activity(Base):
 
     id = Column(Integer, primary_key=True)
     winner_uid = Column(Integer)
+    winner_number = Column(Integer)
     created_time = Column(String(100))
     updated_time = Column(String(100))
 
     def __repr__(self):
-        return "<Lucky_draw_activity(id='{}', winner_uid='{}', created_time='{}', updated_time='{}')>".format(
-            self.id, self.winner_uid, self.created_time, self.updated_time)
+        return "<Lucky_draw_activity(id='{}', winner_uid='{}', winner_number='{}', created_time='{}', updated_time='{}')>".format(
+            self.id, self.winner_uid, self.winner_number, self.created_time, self.updated_time)
 
 
 if __name__ == "__main__":

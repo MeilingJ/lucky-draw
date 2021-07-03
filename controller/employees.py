@@ -8,8 +8,6 @@ from utils.connect_db import engine, session
 
 class Employees:
 
-    employees = []  # 员工列表 [(员工号, 员工名),(员工号, 员工名),...]
-
     def add_employee(self, id, name):
         '''
         查询员工号是否存在员工表里；

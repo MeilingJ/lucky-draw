@@ -122,13 +122,22 @@ print(result.fetchall())
 # 7.1: 增加数据
 ed_person=Person(id=1, name="ed", age=18)
 session.add(ed_person)
+session.commit()
 # 7.2: 获取id
 print(ed_person.id)
 # 7.3: 查询数据
 our_person = session.query(Person).filter_by(name='ed').first()
 print(our_person)
-# 7.4: 修改数据
+# 7.4: 修改数据 1
 ed_person.name = '11111'
+ed_person.age = 99
+our_person.age = 100
+# 修改数据 2  update的参数只接受传json, 返回是否更新成功
+result = session.query(Person).filter_by(id=1).update({"age":19})
+print("The updated record is: ", result)
+session.commit()
+print("------------")
+
 # 7.5: 查看脏数据
 print(session.dirty)
 # 7.6: 增加一组数据
@@ -142,7 +151,13 @@ IdentitySet([<User(name='wendy', fullname='Wendy Williams', password='foobar')>,
 '''
 # 7.8: 删除数据
 session.delete(ed_person)
-# 7.7: 提交数据回滚数据
+# 7.9: 排序后查询第一条记录的字段id
+user_id = session.query(User).order_by(User.id).first().id # 默认升序
+user_id = session.query(User).order_by(User.id.desc()).first().id # 降序
+from sqlalchemy import desc
+user_id = session.query(User).order_by(desc('id')).first().id # 降序
+
+# 7.10: 提交数据回滚数据
 # 上面的数据并没有在数据库中，需要通过commit()方法把数据提交到数据库中，获取通过rollback回滚数据。
 session.rollback()
 session.commit()

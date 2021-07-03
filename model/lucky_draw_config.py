@@ -11,7 +11,7 @@ class Lucky_draw_config(Base):
 
     __tablename__ = 'lucky_draw_config'  # 表名
 
-    lucky_draw_activity_id = Column(Integer, ForeignKey('lucky_draw_activity.id'))
+    lucky_draw_activity_id = Column(Integer, primary_key=True) # ForeignKey('lucky_draw_activity.id')
     type = Column(String(100))
     serial_scope = Column(Integer)
     biggest_serial_winning_odds = Column(Integer)
