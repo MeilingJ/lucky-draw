@@ -63,7 +63,7 @@ class Person(Base):
         UniqueConstraint('id', 'name', name='uix_id_name'),
 
         # 建立索引
-        Index('uix_id_name', 'name'),
+        # Index('uix_id_name', 'name'),
     )
 
 # step 3: 定义表，或叫声明表，方式二
@@ -141,7 +141,8 @@ print("------------")
 # 7.5: 查看脏数据
 print(session.dirty)
 # 7.6: 增加一组数据
-session.add_all([User(name='wendy', fullname='Wendy Williams'), User(name='mary', fullname='Mary Contrary'), User(name='fred', fullname='Fred Flinstone')])
+result = session.add_all([User(name='wendy', fullname='Wendy Williams', password='111111'), User(name='mary', fullname='Mary Contrary', password='111111'), User(name='fred', fullname='Fred Flinstone', password='111111')])
+print("7.6: ", result)
 #表示查看新增加的数据
 print(session.new)
 '''

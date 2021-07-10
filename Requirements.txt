@@ -1,2 +1,5 @@
-sqlalchemy
+sqlalchemy~=1.4.16
 pymysql
+pydantic~=1.8.1
+uvicorn~=0.13.4
+fastapi~=0.64.0

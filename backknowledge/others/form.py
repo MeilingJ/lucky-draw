@@ -10,6 +10,7 @@ class TypeFormat(str, Enum):
     digit = "digit"
     range = "range"
 
+
 class SupportedType(BaseModel):
     key: str
     name: str
@@ -26,6 +27,7 @@ support_type = {
 s = SupportedType(**support_type)
 print(s.json())
 
+
 class SupportedTypeList(BaseModel):
     records: List[SupportedType] = list()
 
@@ -35,7 +37,7 @@ support_type_list = {
 }
 
 s = SupportedTypeList(**support_type_list)
-print(s.json())
+print("support_type_list: ", s.json())
 
 
 

@@ -8,15 +8,15 @@ from utils.connect_db import engine, session
 
 class Employees:
 
-    def add_employee(self, id, name):
-        '''
+    def add_employee(id, name):
+        """
         查询员工号是否存在员工表里；
         如果不存在则添加并存储则员工表里 1
         如果员工号存在，但用户名不一致，则报错"员工号已存在，但员工姓名跟系统里的员工姓名不一致，请核实录入信息！" 2
         如果员工号存在，且用户名也一致，则不重复添加；1
         :param employee: (员工号，员工姓名)
         :return: status_code，msg
-        '''
+        """
 
         result = session.query(Lucky_draw_employee).filter_by(uid=id).first()
         print("查询某员工id的结果：", result)
@@ -29,24 +29,25 @@ class Employees:
             session.add(employee_data)
             session.commit()
             status_code = 1
-            msg = '员工已添加'
+            msg = '员工{}已添加'.format(id)
         elif result.uid == id and result.uname == name:
             status_code = 1
-            msg = '员工已经存在，不需要重复添加！'
+            msg = '员工{}已经存在，不需要重复添加！'.format(id)
         elif result.uid == id and result.uname != name:
             status_code = 2
-            msg = '员工号已存在，但员工姓名跟系统里的员工姓名不一致，请核实录入信息！'
+            msg = '员工{}已存在，但员工姓名跟系统里的员工姓名不一致，请核实录入信息！'.format(id)
 
         return status_code, msg
 
-    def delete_employee(self, id):
-        '''
+    def delete_employee(id):
+        """
         检查该员工号是否在员工列表中存在
         如果员工号存在，则在数据库删除；1
         如果不存在, 则报错"该员工号不存在，请检查并重新操作！" 2
         :param employee:
         :return: status_code，msg
-        '''
+        """
+
         result = session.query(Lucky_draw_employee).filter_by(uid=id).first()
         print("查询某员工id的结果：", result)
 
@@ -57,12 +58,12 @@ class Employees:
             session.delete(result)
             session.commit()
             status_code = 1
-            msg = '员工已删除'
+            msg = '员工{}已删除'.format(id)
         else:
             status_code = 2
-            msg = '该员工号不存在，可能已删除！'
+            msg = '员工{}不存在，可能已删除！'.format(id)
 
-        print(status_code, msg)
+        return status_code, msg
 
 
 if __name__ == "__main__":

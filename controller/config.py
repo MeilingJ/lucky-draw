@@ -2,6 +2,8 @@ from model.lucky_draw_activity import Lucky_draw_activity
 from model.lucky_draw_config import Lucky_draw_config
 from utils.connect_db import session
 from utils.utils import current_time
+
+
 # 基础配置 config： create_lucky_draw, set_serial_scope, set_biggest_serial_winning_odds
 
 
@@ -16,14 +18,25 @@ def create_lucky_draw_activity():
     id = session.query(Lucky_draw_activity).order_by(Lucky_draw_activity.id.desc()).first().id
     return id
 
+
 def set_lucky_draw_config(ld_id, scope, odds):
     # 在lucky_draw_config表里创建一条记录
 
-    ld_config = Lucky_draw_config(lucky_draw_activity_id=ld_id, type='CUSTOM', serial_scope=scope, biggest_serial_winning_odds=odds)
-    session.add(ld_config)
-    session.commit()
+    try:
+        ld_config = Lucky_draw_config(lucky_draw_activity_id=ld_id, type='CUSTOM', serial_scope=scope,
+                                      biggest_serial_winning_odds=odds)
+        session.add(ld_config)
+        session.commit()
+    except Exception as e:
+        print("Exception is:", e)
+        session.rollback()
+        return False
+    else:
+        return True
 
 
 if __name__ == "__main__":
-    id = create_lucky_draw_activity()
-    set_lucky_draw_config(id, 10000, 90)
+    # id = create_lucky_draw_activity()
+    # set_lucky_draw_config(id, 10000, 90)
+    set_lucky_draw_config(9, 888, 0.9)
+
