@@ -1,14 +1,13 @@
-from fastapi import FastAPI
+from fastapi import APIRouter
 
 from controller.config import create_lucky_draw_activity, set_lucky_draw_config
 from controller.employees import Employees
 from form.lucky_draw_form import GenerateActivityResponse, ConfigRequest, ConfigResponse, AddEmployeesResponse, EmployeeList, DeleteEmployeesResponse
 
-app = FastAPI()
-fake_items_db = [{"item_name": "Foo"}, {"item_name": "Bar"}, {"item_name": "Baz"}]
+router = APIRouter()
 
 
-@app.post("/generate-activity/", response_model=GenerateActivityResponse)
+@router.post("/generate-activity/", response_model=GenerateActivityResponse)
 async def generate_lucky_draw_activity():
     """
     创建一次抽奖活动
@@ -20,7 +19,7 @@ async def generate_lucky_draw_activity():
     return GenerateActivityResponse(activity_id=new_activity_id)
 
 
-@app.post("/set-config/", response_model=ConfigResponse)
+@router.post("/set-config/", response_model=ConfigResponse)
 async def set_config(request: ConfigRequest):
     """
     基础配置
@@ -34,7 +33,7 @@ async def set_config(request: ConfigRequest):
         return ConfigResponse(message='Set fail！可能存在重复提交。')
 
 
-@app.post("/add-employees/", response_model=AddEmployeesResponse)
+@router.post("/add-employees/", response_model=AddEmployeesResponse)
 async def add_employees(request: EmployeeList):
     """
     录入多个员工
@@ -52,7 +51,7 @@ async def add_employees(request: EmployeeList):
     return AddEmployeesResponse(**add_employees_response)
 
 
-@app.delete("/delete-employees/", response_model=DeleteEmployeesResponse)
+@router.delete("/delete-employees/", response_model=DeleteEmployeesResponse)
 async def delete_employees(request: EmployeeList):
     """
     删除多个员工
@@ -68,7 +67,3 @@ async def delete_employees(request: EmployeeList):
     delete_employees_response = {"msg": result_list}
     return DeleteEmployeesResponse(**delete_employees_response)
 
-
-if __name__ == '__main__':
-    import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=8000)

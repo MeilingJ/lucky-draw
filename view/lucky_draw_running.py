@@ -1,12 +1,12 @@
-from fastapi import FastAPI
+from fastapi import APIRouter
 
 from controller.runner import get_winner
 from form.lucky_draw_form import GenerateWinnerResponse
 
-app = FastAPI()
+router = APIRouter()
 
 
-@app.post("/generate-winner/", response_model=GenerateWinnerResponse)
+@router.post("/generate-winner/", response_model=GenerateWinnerResponse)
 async def generate_winner(activity_id: int):
     """
     抽奖
@@ -18,6 +18,4 @@ async def generate_winner(activity_id: int):
     return GenerateWinnerResponse(winner_uid=uid)
 
 
-if __name__ == '__main__':
-    import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+

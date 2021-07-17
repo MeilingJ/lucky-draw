@@ -55,9 +55,6 @@ def calculate_winning_odds(employees_serial, biggest_serial_winning_odds):
     if max_num == employees_num:
         other_odds = 0
         max_odds = 1/max_num
-    elif max_num == 1:
-        max_odds = biggest_serial_winning_odds
-        other_odds = (1 - biggest_serial_winning_odds) / (employees_num - max_num)
     else:
         max_odds = biggest_serial_winning_odds / max_num
         other_odds = (1 - biggest_serial_winning_odds) / (employees_num - max_num)
@@ -65,7 +62,7 @@ def calculate_winning_odds(employees_serial, biggest_serial_winning_odds):
     print("获得最大序列号的人的中奖概率", max_odds)
     print("获得非最大序列号的人的中奖概率：", other_odds)
 
-    for i in range(len(employees_serial)):
+    for i in range(employees_num):
         if employees_serial[i] == max_serial:
             employees_winning_odds.append(max_odds)
         else:
